@@ -1,11 +1,10 @@
-from django.shortcuts import render
-from h11 import Response
 from rest_framework import viewsets, status, response
-from models import Ticket
-from serializers import TicketSerializer
+from models import Ticket, Purchase
+from serializers import TicketSerializer, PurchaseSerializer
+from rest_framework.decorators import action
 
 
-class TicketsViewSet(viewsets.Viewse):
+class TicketsViewSet(viewsets.ViewSet):
 
     def create(self, request):
         name = request.data.get("name")
@@ -60,3 +59,22 @@ class TicketsViewSet(viewsets.Viewse):
         ticket.delete()
 
         return response.Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class PurchaseViewSet(viewsets.ModelViewSet):
+
+    @action(detail=False, methods=["post"])
+    def buy(self, request):
+        ticket_id = request.data.get("ticket_id")
+        user = request.user
+
+        if not ticket_id or not user:
+            return response.Response(status=status.HTTP_400_BAD_REQUEST)
+
+        purchase = Purchase.objects.create(user=user, ticket=ticket_id)
+        serializer = PurchaseSerializer(purchase).data
+
+        return response.Response({ "data": serializer }, status=status.HTTP_200_OK)
+        
+
+

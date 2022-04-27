@@ -12,6 +12,7 @@ urlpatterns = [
     path('auth/registration/', include('dj_rest_auth.registration.urls')),
     path('auth/', include('dj_rest_auth.urls')),
     path("auth-token/", obtain_auth_token),
+    path("/tickets", include("tickets.urls"), namespace="tickets")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
