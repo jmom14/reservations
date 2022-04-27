@@ -1,11 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface IAuthState {
-  value: number
+  user: IUser,
+}
+
+export interface IUser {
+  username?: string,
+  name?: string
+  token?: string,
 }
 
 const initialState: IAuthState = {
-  value: 0,
+  user: {},
 }
 
 export const authSlice = createSlice({
@@ -14,17 +20,10 @@ export const authSlice = createSlice({
   
   reducers: {
     increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
     },
     decrement: (state) => {
-      state.value -= 1
     },
     incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload
     },
   },
 })

@@ -10,7 +10,7 @@ urlpatterns = [
     path("users/", include("reservations.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     path('auth/registration/', include('dj_rest_auth.registration.urls')),
-    # path('auth/', include('dj_rest_auth.urls')),
+    path('auth/', include('dj_rest_auth.urls')),
     path("auth-token/", obtain_auth_token),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

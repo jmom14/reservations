@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { FlexcColumn, Title, SpaceBetween, Error, Success } from './core';
 import useAsync from '../hooks/useAsync';
+import { Link } from 'react-router-dom';
 
 const Signup: React.FC = () => {
   const [newUser, setNewUser] = useState({
@@ -87,6 +88,9 @@ const Signup: React.FC = () => {
           </button>
         </SpaceBetween>
       </form>
+
+      <br />
+      <Link to="/login">Login</Link>
     </FlexcColumn>
   )
 };
