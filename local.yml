@@ -23,14 +23,14 @@ services:
       - "8000:8000"
     command: /start
 
-  webapp:
-    command : npm start
-    container_name: reservations_local_webapp
-    build:
-      context: ./webapp/
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
+  # webapp:
+  #   command : npm start
+  #   container_name: reservations_local_webapp
+  #   build:
+  #     context: ./webapp/
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
 
   postgres:
     build:
