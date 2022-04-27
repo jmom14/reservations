@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
 import { FlexcColumn, Title, SpaceBetween } from './core';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import useAsync from '../hooks/useAsync';
+import { useSelector, useDispatch } from 'react-redux'
+import { LOGIN_SAGA } from '../redux/sagas/actions';
 
 interface IUser{
   username: string,
   password: string,
 }
 
-const Login = () => {
+const Login: React.FC = () => {
   const [user, setUser] = useState<IUser>({
     username: '',
     password: '',
   });
-
-  const onLogin = async () => {
-    return await axios.post('http://localhost:8000/auth/login/', user);
-  };
-
-  const  { execute, status, value, error } = useAsync(onLogin, false);
+  const isLoading = useSelector((state: any) => state.auth.isLoading);
+  const dispatch = useDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    execute();
+    dispatch({ type: LOGIN_SAGA, payload: user });
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,12 +56,12 @@ const Login = () => {
         </SpaceBetween>
 
         <button type="submit">
-          Login
-        </button>
-          
+          {isLoading ? 'Loading...' : 'Log in'}
+        </button> 
       </form>
 
       <Link to="/signup">Sign up</Link> 
+
       </FlexcColumn>
   )
 }

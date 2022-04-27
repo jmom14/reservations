@@ -1,17 +1,22 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 export interface IAuthState {
   user: IUser,
+  isLoading: boolean,
+  token: string | null,
+  error: string,
 }
 
 export interface IUser {
   username?: string,
-  name?: string
-  token?: string,
+  email?: string
 }
 
 const initialState: IAuthState = {
   user: {},
+  isLoading: false,
+  token: null,
+  error: '',
 }
 
 export const authSlice = createSlice({
@@ -19,16 +24,33 @@ export const authSlice = createSlice({
   initialState,
   
   reducers: {
-    increment: (state) => {
+    authLogin: (state) => { 
+      state.isLoading = true;
     },
-    decrement: (state) => {
+    authLoginSucceded: (state, action: any) => {
+      const { payload } = action;
+      state.isLoading = false;
+      state.token = payload;
     },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
+    authLoginFailed: (state, action: any) => {
+      const { payload } = action;
+      state.isLoading = false;
+      state.error = payload;
+    },
+    authLogoutSucceded: (state) => {
+      state.token = null;
+    },
+    authLoadUserSucceded: (state, action) => {
+      const { payload } = action;
+      state.user = payload;
+    },
+    authLoadUserFailed: (state) => {
+      state.user = {}
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = authSlice.actions
+export const { authLogin, authLoginSucceded, authLoginFailed, authLogoutSucceded, authLoadUserSucceded, authLoadUserFailed } = authSlice.actions
 
 export default authSlice.reducer
