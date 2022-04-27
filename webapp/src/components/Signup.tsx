@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { FlexcColumn, Title, SpaceBetween, Error, Success } from './core';
 import useAsync from '../hooks/useAsync';
 import { Link } from 'react-router-dom';
+import { signup } from '../services';
 
 const Signup: React.FC = () => {
   const [newUser, setNewUser] = useState({
@@ -12,9 +12,7 @@ const Signup: React.FC = () => {
     password2: "",
   });
 
-  const onSignup = async () => {
-    return await axios.post('http://localhost:8000/auth/registration/', newUser);
-  };
+  const onSignup = () => signup(newUser);
 
   const  { execute, status, value, error } = useAsync(onSignup, false);
 

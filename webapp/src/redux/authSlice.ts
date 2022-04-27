@@ -1,18 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { AuthSlice } from '../types';
 
-export interface IAuthState {
-  user: IUser,
-  isLoading: boolean,
-  token: string | null,
-  error: string,
-}
-
-export interface IUser {
-  username?: string,
-  email?: string
-}
-
-const initialState: IAuthState = {
+const initialState: AuthSlice = {
   user: {},
   isLoading: false,
   token: null,
@@ -50,7 +39,6 @@ export const authSlice = createSlice({
   },
 })
 
-// Action creators are generated for each case reducer function
 export const { authLogin, authLoginSucceded, authLoginFailed, authLogoutSucceded, authLoadUserSucceded, authLoadUserFailed } = authSlice.actions
 
 export default authSlice.reducer

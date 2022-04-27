@@ -1,4 +1,15 @@
-export default {
-    test1: 'test1',
-    test2: 'test2',
-};
+export interface AuthSlice {
+    user: IUser,
+    isLoading: boolean,
+    token: string | null,
+    error: string,
+}
+
+export interface IUser {
+    username?: string,
+    email?: string
+}  
+
+export interface RootState {
+    auth: AuthSlice,
+}

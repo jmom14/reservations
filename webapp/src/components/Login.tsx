@@ -3,6 +3,8 @@ import { FlexcColumn, Title, SpaceBetween } from './core';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { LOGIN_SAGA } from '../redux/sagas/actions';
+import { RootState } from '../types';
+
 
 interface IUser{
   username: string,
@@ -14,7 +16,7 @@ const Login: React.FC = () => {
     username: '',
     password: '',
   });
-  const isLoading = useSelector((state: any) => state.auth.isLoading);
+  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const dispatch = useDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

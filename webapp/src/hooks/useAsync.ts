@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 type Status = "idle" | "pending" | "success" | "error";
 
 const useAsync =(
-    asyncFunction: () => Promise<any>,
+    asyncFunction: () => any,
     immediate = true
   ) => {
     const [status, setStatus] = useState<Status>("idle");
